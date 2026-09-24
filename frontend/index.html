@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Mini Bank</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <script type="module" src="js/app.js"></script>
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <span class="brand-mark" aria-hidden="true">MB</span>
+      <div>
+        <h1>Mini Bank</h1>
+        <p class="subtitle">Banca en línea · Transferencias entre cuentas</p>
+      </div>
+    </div>
+    <span id="api-status" class="status-pill" data-state="checking">Conectando…</span>
+  </header>
+
+  <main class="layout">
+    <section class="panel" aria-labelledby="accounts-title">
+      <div class="panel-head">
+        <h2 id="accounts-title">Cuentas</h2>
+        <button id="refresh-button" class="ghost-button" type="button">Actualizar</button>
+      </div>
+      <div id="accounts" class="account-grid"></div>
+    </section>
+
+    <section class="panel" aria-labelledby="transfer-title">
+      <h2 id="transfer-title">Nueva transferencia</h2>
+      <form id="transfer-form" class="transfer-form" novalidate>
+        <label>
+          Cuenta de origen
+          <select id="from-account" name="from_account" required></select>
+        </label>
+        <label>
+          Cuenta de destino
+          <select id="to-account" name="to_account" required></select>
+        </label>
+        <label>
+          Monto (COP)
+          <input id="amount" name="amount" type="number" step="any" inputmode="decimal" placeholder="Ej: 150000" required>
+        </label>
+        <button id="submit-button" class="primary-button" type="submit">Transferir</button>
+        <div id="transfer-feedback" class="feedback" role="status" aria-live="polite" hidden></div>
+      </form>
+    </section>
+
+    <section class="panel panel-wide" aria-labelledby="history-title">
+      <h2 id="history-title">Historial de transferencias</h2>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>ID</th><th>Fecha</th><th>Origen</th><th>Destino</th><th class="num">Monto</th></tr>
+          </thead>
+          <tbody id="transfers-body"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="panel panel-wide" aria-labelledby="audit-title">
+      <h2 id="audit-title">Auditoría</h2>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>Evento</th><th>Fecha</th><th>Tipo</th><th>Detalle</th></tr>
+          </thead>
+          <tbody id="audit-body"></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+</body>
+</html>

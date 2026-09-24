@@ -60,3 +60,19 @@ def test_transfer_fails_when_there_are_not_enough_funds():
 
     assert response.status_code == 400
     assert response.json()["detail"] == "Insufficient funds"
+
+
+def test_transfer_fails_when_amount_is_not_positive():
+    for amount in (0, -50.0):
+        response = client.post(
+            "/transfers",
+            json={
+                "from_account": "ACC-001",
+                "to_account": "ACC-002",
+                "amount": amount,
+            },
+        )
+
+        assert response.status_code == 400
+        assert response.json()["detail"] == "Monto invalido: debe ser mayor a 0"
+    assert repository.get_balance("ACC-001") == 1000.0

@@ -10,6 +10,9 @@ class TransferService:
         self.repository = repository
 
     def create_transfer(self, from_account: str, to_account: str, amount: float) -> None:
+        if amount <= 0:
+            raise ValueError("Monto invalido: debe ser mayor a 0")
+
         if not self.repository.exists(from_account):
             raise TransferError("Origin account does not exist")
 

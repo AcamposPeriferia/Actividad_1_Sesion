@@ -28,7 +28,7 @@ def create_transfer(request: TransferRequest):
             to_account=request.to_account,
             amount=request.amount,
         )
-    except TransferError as exc:
+    except (TransferError, ValueError) as exc:
         raise HTTPException(status_code=400, detail=str(exc)) from exc
 
     return TransferResponse(

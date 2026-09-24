@@ -7,6 +7,9 @@ class TransferError(Exception):
     pass
 
 
+MAX_TRANSFER_AMOUNT = 50_000_000
+
+
 class TransferService:
     def __init__(
         self,
@@ -54,6 +57,9 @@ class TransferService:
 
         if not self.repository.exists(to_account):
             raise TransferError("Destination account does not exist")
+
+        if amount > MAX_TRANSFER_AMOUNT:
+            raise TransferError("Valida o cambia tu tope de transferencias")
 
         if self.repository.get_balance(from_account) < amount:
             raise TransferError("Insufficient funds")
